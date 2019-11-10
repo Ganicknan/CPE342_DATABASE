@@ -1,7 +1,15 @@
 {% block content %}
-
-{% for p in product %}
-    <h1>{{ p.productcode }}</h1>
-{% endfor %}
-
+<div style="background-color: bisque; position: fixed; width: 160px;">
+    <h3>Product Vendor</h3>
+    <p>1234</p>
+</div>
+<div style="margin-left: 160px;">
+    {% for p in product %}
+        <div style="background-color: lightcoral;">
+            <p>{{ p.productname }}</p>
+            <p>{{ p.productvendor }}</p>
+            <p>{{ p.productscale }}</p>
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}
