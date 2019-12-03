@@ -63,6 +63,12 @@ nav .nav-container a.nav-link-right
     color:rgb(78, 158, 250);
     font-family: inherit;
 }
+.body-container .left-navbar
+{
+    width: 15%;
+    color: aqua;
+    background-color: brown;
+}
 .login-container
 {
     width: 400px;
