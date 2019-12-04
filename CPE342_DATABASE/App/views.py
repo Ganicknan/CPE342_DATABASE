@@ -9,3 +9,7 @@ def home(request):
 def product(request):
     product = Products.objects.all()
     return render(request, 'web/product.html', {'product': product})
+
+def order(request):
+    order = Orders.objects.all()
+    return render(request, 'web/order.html', {'order': order})
