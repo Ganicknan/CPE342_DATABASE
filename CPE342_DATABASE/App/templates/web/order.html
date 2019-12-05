@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div>
+        <table>
+            <tr>
+                <th>Order Number</th>
+                <th>Status</th>
+                <th>Details</th>
+            </tr>
+            {% block content %}
+                {% for o in order %}
+                    <tr>
+                        <td class="{{o.ordernumber}}">{{ o.ordernumber }}</td>
+                        <td>{{ o.status }}</td>
+                        <td>{{ o.comments }}</td>
+                    </tr>
+                {% endfor %}
+            {% endblock %}
+        </table>
+    </div>
+</body>
+</html>
