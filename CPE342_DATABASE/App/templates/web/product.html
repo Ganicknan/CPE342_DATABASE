@@ -1,27 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/normalize.css'%}" type="text/css">
     <title>Document</title>
 </head>
+<style>
+    
+</style>
+
 <body>
 
     {% block content %}
-    <div style="background-color: bisque; position: fixed; width: 160px;">
-        <h3>Product Vendor</h3>
-        <p>1234</p>
-    </div>
-    <div style="margin-left: 160px;">
-        {% for p in product %}
-            <div style="background-color: lightcoral;">
-                <p>{{ p.productname }}</p>
-                <p>{{ p.productvendor }}</p>
-                <p>{{ p.productscale }}</p>
+    <nav>
+        <div class="nav-container">
+            <h3 class="nav-logo">CHOPPINK</h3>
+            <div class="nav-link">
+                <a href="./index.html">Home</a>
+                <a href="./product.html">Product</a>
             </div>
-        {% endfor %}
-    {% endblock %}
-    
+        </div>
+        <div class="nav-container-left">
+            <div class="left-sidebar">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Corporis dolore maxime aliquam tempore voluptatem fugit deserunt praesentium temporibus voluptate
+                id consectetur error, recusandae saepe sit sapiente laudantium earum obcaecati quibusdam.
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Corporis dolore maxime aliquam tempore voluptatem fugit deserunt praesentium temporibus voluptate
+                id consectetur error, recusandae saepe sit sapiente laudantium earum obcaecati quibusdam.
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Corporis dolore maxime aliquam tempore voluptatem fugit deserunt praesentium temporibus voluptate
+                id consectetur error, recusandae saepe sit sapiente laudantium earum obcaecati quibusdam.
+            </div>
+        </div>
+    </nav>
+    <div class="body-container-right">
+        <div class="section">
+            <div class="section-header">
+                <div class="section-heading">PRODUCT</div>
+                <button class="btns active max-btns" onclick="filterSelection('all')">Show all</button>
+                <button class="btns" onclick="filterSelection('Min Lin Diecast')">vendor 1</button>
+                <button class="btns" onclick="filterSelection('Classic Metal Creations')">vendor 2</button>
+                <button class="btns" onclick="filterSelection('Highway 66 Mini Classics')">vendor 3</button>
+                <button class="btns" onclick="filterSelection('Red Start Diecast')">vendor 4</button>
+                <button class="btns" onclick="filterSelection('Motor City Art Classics')">vendor 5</button>
+                <button class="btns" onclick="filterSelection('Second Gear Diecast')">vendor 6</button>
+                <button class="btns" onclick="filterSelection('Autoart Studio Design')">vendor 7</button>
+                <button class="btns" onclick="filterSelection('Welly Diecast Productions')">vendor 8</button>
+                <button class="btns" onclick="filterSelection('Unimax Art Galleries')">vendor 9</button>
+                <button class="btns" onclick="filterSelection('Studio M Art Models')">vendor 10</button>
+                <button class="btns" onclick="filterSelection('Exoto Designs')">vendor 11</button>
+                <button class="btns" onclick="filterSelection('Gearbox Collectibles')">vendor 12</button>
+                <button class="btns" onclick="filterSelection('Carousel DieCast Legends')">vendor 13</button>
+                <button class="btns" onclick="filterSelection('1:10')">1:10</button>
+                <button class="btns" onclick="filterSelection('1:12')">1:12</button>
+                <button class="btns" onclick="filterSelection('1:18')">1:18</button>
+                <button class="btns" onclick="filterSelection('1:24')">1:24</button>
+                <button class="btns" onclick="filterSelection('1:32')">1:32</button>
+                <button class="btns" onclick="filterSelection('1:50')">1:50</button>
+                <button class="btns" onclick="filterSelection('1:72')">1:72</button>
+                <button class="btns" onclick="filterSelection('1:700')">1:700</button>
+            </div>
+        </div>
+        <div class="section">
+            {% for p in product %}
+            <div style="margin-top:20px ;">
+                
+                    <div class="filterDiv {{ p.productvendor}} {{ p.productscale }}">
+
+                        <p>{{ p.productname }}</p>
+                        <p>{{ p.productvendor }}</p>
+                        <p>{{ p.productscale }}</p>
+
+                    </div>
+
+                {% endfor %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        filterSelection("all")
+        function filterSelection(c) {
+            var x, i;
+            x = document.getElementsByClassName("filterDiv");
+            if (c == "all") c = "";
+            for (i = 0; i < x.length; i++) {
+                w3RemoveClass(x[i], "show");
+                if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+            }
+        }
+
+        function w3AddClass(element, name) {
+            var i, arr1, arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (i = 0; i < arr2.length; i++) {
+                if (arr1.indexOf(arr2[i]) == -1) { element.className += " " + arr2[i]; }
+            }
+        }
+
+        function w3RemoveClass(element, name) {
+            var i, arr1, arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (i = 0; i < arr2.length; i++) {
+                while (arr1.indexOf(arr2[i]) > -1) {
+                    arr1.splice(arr1.indexOf(arr2[i]), 1);
+                }
+            }
+            element.className = arr1.join(" ");
+        }
+
+        // Add active class to the current button (highlight it)
+        var btnContainer = document.getElementById("myBtnContainer");
+        var btns = btnContainer.getElementsByClassName("btn1");
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function () {
+                var current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
+            });
+        }
+    </script>
+
 </body>
+
 </html>
