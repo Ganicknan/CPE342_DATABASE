@@ -19,8 +19,6 @@ display: block;
 }
 </style>
 <body>
-
-    {% block content %}
     <div style="background-color: bisque; position: fixed; width: 160px;">
         <h3>Product Vendor</h3>
         <p>1234</p>
@@ -50,14 +48,17 @@ display: block;
         <button class="btns" onclick="filterSelection('1:700')">scale 8</button>
     </div>
     <div style="margin-left: 160px;">
-        {% for p in product %}
-            <div class="filterDiv {{ p.productvendor}} {{ p.productscale }}" style="background-color: lightcoral;">
-                <p>{{ p.productname }}</p>
-                <p>{{ p.productvendor }}</p>
-                <p>{{ p.productscale }}</p>
-            </div>
-        {% endfor %}
-    {% endblock %}
+        <table>
+            {% block content %}
+            {% for p in product %}
+                <div class="filterDiv {{ p.productvendor}} {{ p.productscale }}">
+                    <p>{{ p.productname }}</p>
+                    <p>{{ p.productvendor }}</p>
+                    <p>{{ p.productscale }}</p>
+                </div>
+            {% endfor %}
+            {% endblock %}
+        </table>
     </div>
     
     <script>
