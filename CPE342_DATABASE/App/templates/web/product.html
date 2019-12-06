@@ -6,6 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+<style>
+.filterDiv {
+background-color: #2196F3;
+color: #000000;
+margin: 2px;
+display: none;
+}
+
+.show {
+display: block;
+}
+</style>
 <body>
 
     {% block content %}
@@ -14,14 +26,84 @@
         <p>1234</p>
     </div>
     <div style="margin-left: 160px;">
+        <button class="btns active" onclick="filterSelection('all')">Show all</button>
+        <button class="btns" onclick="filterSelection('Min Lin Diecast')">vendor 1</button>
+        <button class="btns" onclick="filterSelection('Classic Metal Creations')">vendor 2</button>
+        <button class="btns" onclick="filterSelection('Highway 66 Mini Classics')">vendor 3</button>
+        <button class="btns" onclick="filterSelection('Red Start Diecast')">vendor 4</button>
+        <button class="btns" onclick="filterSelection('Motor City Art Classics')">vendor 5</button>
+        <button class="btns" onclick="filterSelection('Second Gear Diecast')">vendor 6</button>
+        <button class="btns" onclick="filterSelection('Autoart Studio Design')">vendor 7</button>
+        <button class="btns" onclick="filterSelection('Welly Diecast Productions')">vendor 8</button>
+        <button class="btns" onclick="filterSelection('Unimax Art Galleries')">vendor 9</button>
+        <button class="btns" onclick="filterSelection('Studio M Art Models')">vendor 10</button>
+        <button class="btns" onclick="filterSelection('Exoto Designs')">vendor 11</button>
+        <button class="btns" onclick="filterSelection('Gearbox Collectibles')">vendor 12</button>
+        <button class="btns" onclick="filterSelection('Carousel DieCast Legends')">vendor 13</button>
+        <button class="btns" onclick="filterSelection('1:10')">scale 1</button>
+        <button class="btns" onclick="filterSelection('1:12')">scale 2</button>
+        <button class="btns" onclick="filterSelection('1:18')">scale 3</button>
+        <button class="btns" onclick="filterSelection('1:24')">scale 4</button>
+        <button class="btns" onclick="filterSelection('1:32')">scale 5</button>
+        <button class="btns" onclick="filterSelection('1:50')">scale 6</button>
+        <button class="btns" onclick="filterSelection('1:72')">scale 7</button>
+        <button class="btns" onclick="filterSelection('1:700')">scale 8</button>
+    </div>
+    <div style="margin-left: 160px;">
         {% for p in product %}
-            <div style="background-color: lightcoral;">
+            <div class="filterDiv {{ p.productvendor}} {{ p.productscale }}" style="background-color: lightcoral;">
                 <p>{{ p.productname }}</p>
                 <p>{{ p.productvendor }}</p>
                 <p>{{ p.productscale }}</p>
             </div>
         {% endfor %}
     {% endblock %}
+    </div>
     
+    <script>
+        filterSelection("all")
+        function filterSelection(c) {
+            var x, i;
+            x = document.getElementsByClassName("filterDiv");
+            if (c == "all") c = "";
+            for (i = 0; i < x.length; i++) {
+            w3RemoveClass(x[i], "show");
+            if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+            }
+        }
+        
+        function w3AddClass(element, name) {
+            var i, arr1, arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (i = 0; i < arr2.length; i++) {
+            if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+            }
+        }
+        
+        function w3RemoveClass(element, name) {
+            var i, arr1, arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (i = 0; i < arr2.length; i++) {
+            while (arr1.indexOf(arr2[i]) > -1) {
+                arr1.splice(arr1.indexOf(arr2[i]), 1);     
+            }
+            }
+            element.className = arr1.join(" ");
+        }
+        
+        // Add active class to the current button (highlight it)
+        var btnContainer = document.getElementById("myBtnContainer");
+        var btns = btnContainer.getElementsByClassName("btn1");
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function(){
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+            });
+        }
+    </script>
+
 </body>
 </html>
