@@ -8,35 +8,145 @@
 from django.db import models
 
 
+class AuthGroup(models.Model):
+    name = models.CharField(unique=True, max_length=150)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_group'
+
+
+class AuthGroupPermissions(models.Model):
+    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
+    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_group_permissions'
+        unique_together = (('group', 'permission'),)
+
+
+class AuthPermission(models.Model):
+    name = models.CharField(max_length=255)
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
+    codename = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_permission'
+        unique_together = (('content_type', 'codename'),)
+
+
+class AuthUser(models.Model):
+    password = models.CharField(max_length=128)
+    last_login = models.DateTimeField(blank=True, null=True)
+    is_superuser = models.IntegerField()
+    username = models.CharField(unique=True, max_length=150)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=150)
+    email = models.CharField(max_length=254)
+    is_staff = models.IntegerField()
+    is_active = models.IntegerField()
+    date_joined = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'auth_user'
+
+
+class AuthUserGroups(models.Model):
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_user_groups'
+        unique_together = (('user', 'group'),)
+
+
+class AuthUserUserPermissions(models.Model):
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_user_user_permissions'
+        unique_together = (('user', 'permission'),)
+
+
 class Customers(models.Model):
-    customernumber = models.TextField(db_column='customerNumber', primary_key=True)  # Field name made lowercase.
-    customername = models.TextField(db_column='customerName', blank=True, null=True)  # Field name made lowercase.
-    contactlastname = models.TextField(db_column='contactLastName', blank=True, null=True)  # Field name made lowercase.
-    contactfirstname = models.TextField(db_column='contactFirstName', blank=True, null=True)  # Field name made lowercase.
-    phone = models.TextField(blank=True, null=True)
-    addressline1 = models.TextField(db_column='addressLine1', blank=True, null=True)  # Field name made lowercase.
-    addressline2 = models.TextField(db_column='addressLine2', blank=True, null=True)  # Field name made lowercase.
-    city = models.TextField(blank=True, null=True)
-    state = models.TextField(blank=True, null=True)
-    postalcode = models.TextField(db_column='postalCode', blank=True, null=True)  # Field name made lowercase.
-    country = models.TextField(blank=True, null=True)
-    salesrepemployeenumber = models.TextField(db_column='salesRepEmployeeNumber', blank=True, null=True)  # Field name made lowercase.
-    creditlimit = models.TextField(db_column='creditLimit', blank=True, null=True)  # Field name made lowercase.
+    customernumber = models.IntegerField(db_column='customerNumber', primary_key=True)  # Field name made lowercase.
+    customername = models.CharField(db_column='customerName', max_length=50)  # Field name made lowercase.
+    contactlastname = models.CharField(db_column='contactLastName', max_length=50)  # Field name made lowercase.
+    contactfirstname = models.CharField(db_column='contactFirstName', max_length=50)  # Field name made lowercase.
+    phone = models.CharField(max_length=50)
+    addressline1 = models.CharField(db_column='addressLine1', max_length=50)  # Field name made lowercase.
+    addressline2 = models.CharField(db_column='addressLine2', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50, blank=True, null=True)
+    postalcode = models.CharField(db_column='postalCode', max_length=15, blank=True, null=True)  # Field name made lowercase.
+    country = models.CharField(max_length=50)
+    salesrepemployeenumber = models.ForeignKey('Employees', models.DO_NOTHING, db_column='salesRepEmployeeNumber', blank=True, null=True)  # Field name made lowercase.
+    creditlimit = models.DecimalField(db_column='creditLimit', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'customers'
 
 
+class DjangoAdminLog(models.Model):
+    action_time = models.DateTimeField()
+    object_id = models.TextField(blank=True, null=True)
+    object_repr = models.CharField(max_length=200)
+    action_flag = models.PositiveSmallIntegerField()
+    change_message = models.TextField()
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'django_admin_log'
+
+
+class DjangoContentType(models.Model):
+    app_label = models.CharField(max_length=100)
+    model = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'django_content_type'
+        unique_together = (('app_label', 'model'),)
+
+
+class DjangoMigrations(models.Model):
+    app = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    applied = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_migrations'
+
+
+class DjangoSession(models.Model):
+    session_key = models.CharField(primary_key=True, max_length=40)
+    session_data = models.TextField()
+    expire_date = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_session'
+
+
 class Employees(models.Model):
-    employeenumber = models.TextField(db_column='employeeNumber', primary_key=True)  # Field name made lowercase.
-    lastname = models.TextField(db_column='lastName', blank=True, null=True)  # Field name made lowercase.
-    firstname = models.TextField(db_column='firstName', blank=True, null=True)  # Field name made lowercase.
-    extension = models.TextField(blank=True, null=True)
-    email = models.TextField(blank=True, null=True)
-    officecode = models.TextField(db_column='officeCode', blank=True, null=True)  # Field name made lowercase.
-    reportsto = models.TextField(db_column='reportsTo', blank=True, null=True)  # Field name made lowercase.
-    jobtitle = models.TextField(db_column='jobTitle', blank=True, null=True)  # Field name made lowercase.
+    employeenumber = models.IntegerField(db_column='employeeNumber', primary_key=True)  # Field name made lowercase.
+    lastname = models.CharField(db_column='lastName', max_length=50)  # Field name made lowercase.
+    firstname = models.CharField(db_column='firstName', max_length=50)  # Field name made lowercase.
+    extension = models.CharField(max_length=10)
+    email = models.CharField(max_length=100)
+    officecode = models.ForeignKey('Offices', models.DO_NOTHING, db_column='officeCode')  # Field name made lowercase.
+    reportsto = models.ForeignKey('self', models.DO_NOTHING, db_column='reportsTo', blank=True, null=True)  # Field name made lowercase.
+    jobtitle = models.CharField(db_column='jobTitle', max_length=50)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -44,15 +154,15 @@ class Employees(models.Model):
 
 
 class Offices(models.Model):
-    officecode = models.TextField(db_column='officeCode', primary_key=True)  # Field name made lowercase.
-    city = models.TextField(blank=True, null=True)
-    phone = models.TextField(blank=True, null=True)
-    addressline1 = models.TextField(db_column='addressLine1', blank=True, null=True)  # Field name made lowercase.
-    addressline2 = models.TextField(db_column='addressLine2', blank=True, null=True)  # Field name made lowercase.
-    state = models.TextField(blank=True, null=True)
-    country = models.TextField(blank=True, null=True)
-    postalcode = models.TextField(db_column='postalCode', blank=True, null=True)  # Field name made lowercase.
-    territory = models.TextField(blank=True, null=True)
+    officecode = models.CharField(db_column='officeCode', primary_key=True, max_length=10)  # Field name made lowercase.
+    city = models.CharField(max_length=50)
+    phone = models.CharField(max_length=50)
+    addressline1 = models.CharField(db_column='addressLine1', max_length=50)  # Field name made lowercase.
+    addressline2 = models.CharField(db_column='addressLine2', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    state = models.CharField(max_length=50, blank=True, null=True)
+    country = models.CharField(max_length=50)
+    postalcode = models.CharField(db_column='postalCode', max_length=15)  # Field name made lowercase.
+    territory = models.CharField(max_length=10)
 
     class Meta:
         managed = False
@@ -60,25 +170,26 @@ class Offices(models.Model):
 
 
 class Orderdetails(models.Model):
-    ordernumber = models.TextField(db_column='orderNumber', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    productcode = models.TextField(db_column='productCode', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    quantityordered = models.TextField(db_column='quantityOrdered', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    priceeach = models.TextField(db_column='priceEach', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    orderlinenumber = models.TextField(db_column='orderLineNumber', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
+    ordernumber = models.ForeignKey('Orders', models.DO_NOTHING, db_column='orderNumber')  # Field name made lowercase.
+    productcode = models.ForeignKey('Products', models.DO_NOTHING, db_column='productCode')  # Field name made lowercase.
+    quantityordered = models.IntegerField(db_column='quantityOrdered')  # Field name made lowercase.
+    priceeach = models.DecimalField(db_column='priceEach', max_digits=10, decimal_places=2)  # Field name made lowercase.
+    orderlinenumber = models.SmallIntegerField(db_column='orderLineNumber')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'orderdetails'
+        unique_together = (('ordernumber', 'productcode'),)
 
 
 class Orders(models.Model):
-    ordernumber = models.TextField(db_column='orderNumber', primary_key=True)  # Field name made lowercase.
-    orderdate = models.TextField(db_column='orderDate', blank=True, null=True)  # Field name made lowercase.
-    requireddate = models.TextField(db_column='requiredDate', blank=True, null=True)  # Field name made lowercase.
-    shippeddate = models.TextField(db_column='shippedDate', blank=True, null=True)  # Field name made lowercase.
-    status = models.TextField(blank=True, null=True)
+    ordernumber = models.IntegerField(db_column='orderNumber', primary_key=True)  # Field name made lowercase.
+    orderdate = models.DateField(db_column='orderDate')  # Field name made lowercase.
+    requireddate = models.DateField(db_column='requiredDate')  # Field name made lowercase.
+    shippeddate = models.DateField(db_column='shippedDate', blank=True, null=True)  # Field name made lowercase.
+    status = models.CharField(max_length=15)
     comments = models.TextField(blank=True, null=True)
-    customernumber = models.TextField(db_column='customerNumber', blank=True, null=True)  # Field name made lowercase.
+    customernumber = models.ForeignKey(Customers, models.DO_NOTHING, db_column='customerNumber')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -86,19 +197,20 @@ class Orders(models.Model):
 
 
 class Payments(models.Model):
-    customernumber = models.TextField(db_column='customerNumber', blank=True, null=True)  # Field name made lowercase.
-    checknumber = models.TextField(db_column='checkNumber', primary_key=True)  # Field name made lowercase.
-    paymentdate = models.TextField(db_column='paymentDate', blank=True, null=True)  # Field name made lowercase.
-    amount = models.TextField(blank=True, null=True)
+    customernumber = models.ForeignKey(Customers, models.DO_NOTHING, db_column='customerNumber')  # Field name made lowercase.
+    checknumber = models.CharField(db_column='checkNumber', max_length=50)  # Field name made lowercase.
+    paymentdate = models.DateField(db_column='paymentDate')  # Field name made lowercase.
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
         managed = False
         db_table = 'payments'
+        unique_together = (('customernumber', 'checknumber'),)
 
 
 class Productlines(models.Model):
-    productline = models.TextField(db_column='productLine', primary_key=True)  # Field name made lowercase.
-    textdescription = models.TextField(db_column='textDescription', blank=True, null=True)  # Field name made lowercase.
+    productline = models.CharField(db_column='productLine', primary_key=True, max_length=50)  # Field name made lowercase.
+    textdescription = models.CharField(db_column='textDescription', max_length=4000, blank=True, null=True)  # Field name made lowercase.
     htmldescription = models.TextField(db_column='htmlDescription', blank=True, null=True)  # Field name made lowercase.
     image = models.TextField(blank=True, null=True)
 
@@ -108,15 +220,15 @@ class Productlines(models.Model):
 
 
 class Products(models.Model):
-    productcode = models.TextField(db_column='productCode', primary_key=True)  # Field name made lowercase.
-    productname = models.TextField(db_column='productName', blank=True, null=True)  # Field name made lowercase.
-    productline = models.TextField(db_column='productLine', blank=True, null=True)  # Field name made lowercase.
-    productscale = models.TextField(db_column='productScale', blank=True, null=True)  # Field name made lowercase.
-    productvendor = models.TextField(db_column='productVendor', blank=True, null=True)  # Field name made lowercase.
-    productdescription = models.TextField(db_column='productDescription', blank=True, null=True)  # Field name made lowercase.
-    quantityinstock = models.TextField(db_column='quantityInStock', blank=True, null=True)  # Field name made lowercase.
-    buyprice = models.TextField(db_column='buyPrice', blank=True, null=True)  # Field name made lowercase.
-    msrp = models.TextField(db_column='MSRP', blank=True, null=True)  # Field name made lowercase.
+    productcode = models.CharField(db_column='productCode', primary_key=True, max_length=15)  # Field name made lowercase.
+    productname = models.CharField(db_column='productName', max_length=70)  # Field name made lowercase.
+    productline = models.ForeignKey(Productlines, models.DO_NOTHING, db_column='productLine')  # Field name made lowercase.
+    productscale = models.CharField(db_column='productScale', max_length=10)  # Field name made lowercase.
+    productvendor = models.CharField(db_column='productVendor', max_length=50)  # Field name made lowercase.
+    productdescription = models.TextField(db_column='productDescription')  # Field name made lowercase.
+    quantityinstock = models.SmallIntegerField(db_column='quantityInStock')  # Field name made lowercase.
+    buyprice = models.DecimalField(db_column='buyPrice', max_digits=10, decimal_places=2)  # Field name made lowercase.
+    msrp = models.DecimalField(db_column='MSRP', max_digits=10, decimal_places=2)  # Field name made lowercase.
 
     class Meta:
         managed = False

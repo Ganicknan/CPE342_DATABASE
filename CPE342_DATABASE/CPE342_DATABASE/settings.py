@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'CPE342_DATABASE.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'CPE342_DATABASE\classicmodels.sqlite',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'classicmodels',
+        'USER': 'KotoriSN',
+        'PASSWORD': 'SnUS1204',
+        'HOST': 'localhost',
+        'POST': '3306'
     }
 }
 
