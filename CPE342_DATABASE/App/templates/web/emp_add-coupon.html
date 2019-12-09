@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ERM</title>
+    <title>Add-Coupon</title>
 </head>
 {% block content %}
 <body>
@@ -16,20 +16,25 @@
         <a href="/emp_add-coupon.html">Add Coupon</a>
     </div>
     <div>
-        <table border="1">
+        <table>
             <tr>
-                <th>Employee No.</th>
-                <th>Employee Name</th>
-                <th>Employee Job</th>
+                <td>Code:</td>
+                <td><input type="text"></td>
             </tr>
-            {% for e in employee %}
             <tr>
-                <td>{{ e.employeenumber }}</td>
-                <td>{{ e.lastname }} {{ e.firstname }}</td>
-                <td>{{ e.jobtitle }}</td>
+                <td>Value:</td>
+                <td><input type="text"></td>
             </tr>
-            {% endfor %}
+            <tr>
+                <td>Qty:</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>Expire:</td>
+                <td><input type="text"></td>
+            </tr>
         </table>
+        <button type="submit">Add Coupon</button>
     </div>
 </body>
 {% endblock %}

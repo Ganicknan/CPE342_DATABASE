@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Order</title>
+    <title>Customer List</title>
 </head>
 {% block content %}
 <body>
@@ -18,17 +18,25 @@
     <div>
         <table border="1">
             <tr>
-                <th>Order ID</th>
-                <th>Status</th>
                 <th>Customer No.</th>
+                <th>Company Name</th>
+                <th>Customer Contact</th>
+                <th>Phone No.</th>
+                <th>Address</th>
+                <th>Postal Code</th>
+                <th>Country</th>
                 <td>Edit</td>
             </tr>
-            {% for o in order %}
+            {% for c in customer %}
             <tr>
-                <td>{{ o.ordernumber }}</td>
-                <td>{{ o.status }}</td>
-                <td>{{ o.customernumber }}</td>
-                <td><a href="/order/edit_order.html">Click!</a></td>
+                <td>{{ c.customernumber }}</td>
+                <td>{{ c.customername }}</td>
+                <td>{{ c.contactlastname }} {{ c.contactfirstname }}</td>
+                <td>{{ c.phone }}</td>
+                <td>{{ c.addressline1 }}</td>
+                <td>{{ c.postalcode }}</td>
+                <td>{{ c.country }}</td>
+                <td><a href="/customer/edit_customer.html">Click!</a></td>
             </tr>
             {% endfor %}
         </table>
