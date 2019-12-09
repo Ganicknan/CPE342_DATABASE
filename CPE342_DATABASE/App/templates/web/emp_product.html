@@ -6,7 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+{% block content %}
 <body>
-    
+    <div>
+        <table border="1">
+            <tr>
+                <th>Product Name</th>
+                <th>Product Vendor</th>
+                <th>Product Scale</th>
+                <th>Product Quantity</th>
+            </tr>
+            {% for p in product %}
+            <tr>
+                <td>{{ p.productname }}</td>
+                <td>{{ p.productvendor }}</td>
+                <td>{{ p.productscale }}</td>
+                <td>{{ p.quantityinstock }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 </body>
+{% endblock %}
 </html>
