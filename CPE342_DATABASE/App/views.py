@@ -13,3 +13,7 @@ def product(request):
 def order(request):
     order = Orders.objects.all()
     return render(request, 'web/order.html', {'order': order})
+
+def emp_product(request):
+    product = Products.objects.all()
+    return render(request, 'web/emp_product.html', {'product': product})
