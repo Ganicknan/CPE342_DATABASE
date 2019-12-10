@@ -7,7 +7,6 @@
     <title>Edit-Customer</title>
 </head>
 <body>
-    <div><a href="/emp_customer.html"><-Back</a></div>
     <div>
         <form action="/emp_customer.html" method="POST">
             {% csrf_token %}
@@ -64,7 +63,7 @@
                     </tr>
                 </table>
                 <button type="submit" name="customernumber" id="customernumber" value="{{ c.customernumber }}">Submit</button>
-                <button><a href="/emp_customer.html">Cancel</a></button>
+                <button><a href="/emp_customer/">Cancel</a></button>
             {% endfor %}
         </form>
     </div>

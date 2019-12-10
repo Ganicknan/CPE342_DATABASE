@@ -7,21 +7,33 @@
     <title>Edit-Order</title>
 </head>
 <body>
-    <div><a href="/emp_order.html"><-Back</a></div>
+    <div><a href="/emp_order/"><-Back</a></div>
     <div>
         <form action="emp_order.html" method="POST">
-            {% for o in order %}
                 <table>
-                    <tr><h1>Order No. : {{ o.ordernumber }}</h1></tr>
+                    <tr><h1>Order No. : {{ order.ordernumber }}</h1></tr>
                     <tr>
                         <td>Customer ID : </td>
-                        <td><input type="text" value="{{ o.customernumber }}"></td>
+                        <td><input type="text" value="{{ order.customernumber }}"></td>
                     </tr>
                     <tr>
                         <td>Item</td>
+                        <td>
+                            <table border="1">
+                                <tr>
+                                    <th>Product Code</th>
+                                    <th>Qty</th>
+                                </tr>
+                                {% for od in orderdetail %}
+                                <tr>
+                                    <td>{{ od.productcode }}</td>
+                                    <td>{{ od.quantityordered }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
                     </tr>
-                </table>
-            {% endfor %}
+            </table>
         </form>
     </div>
 </body>
