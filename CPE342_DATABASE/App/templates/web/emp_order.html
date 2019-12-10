@@ -1,12 +1,11 @@
 {% extends "web/base.html" %}
 {% block content %}
-
-    <div class="body-container-nav">
-        <a href="/emp_stock-in.html">Stock-in</a>
-        <a href="/emp_order.html">Order</a>
-        <a href="/emp_customer.html">Customer</a>
-        <a href="/emp_ERM.html">ERM</a>
-        <a href="/emp_add-coupon.html">Add Coupon</a>
+    <div>
+        <a href="/emp_stock-in/">Stock-in</a>
+        <a href="/emp_order/">Order</a>
+        <a href="/emp_customer/">Customer</a>
+        <a href="/emp_ERM/">ERM</a>
+        <a href="/emp_add-coupon/">Add Coupon</a>
     </div>
     <div>
         <table border="1">
@@ -18,10 +17,16 @@
             </tr>
             {% for o in order %}
             <tr>
+                <form action=""></form>
                 <td>{{ o.ordernumber }}</td>
                 <td>{{ o.status }}</td>
                 <td>{{ o.customernumber }}</td>
-                <td><a href="/order/edit_order.html">Click!</a></td>
+                <td>
+                    <form action="/edit_order/{{ o.ordernumber }}/" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" id="ordernumber" name="ordernumber" value="{{ o.ordernumber }}">Click!</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </table>

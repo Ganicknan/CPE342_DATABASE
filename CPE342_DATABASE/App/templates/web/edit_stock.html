@@ -1,9 +1,47 @@
 {% extends "web/base.html" %}
 {% block content %}
-
-    <div><a href="/emp_customer.html">
-            <-Back</a> </div> <div>
-                <h1>Hello</h1>
+    <div>
+        <form action="emp_stock-in.html" method="POST">
+            {% csrf_token %}
+            {% for p in product %}
+                <table>
+                    <tr><h1>Product Code : {{ p.productcode }}</h1></tr>
+                    <tr>
+                        <td>Product Name : </td>
+                        <td><input type="text" name="productname" id="productname" name="productname" value="{{ p.productname }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Product Line : </td>
+                        <td><input type="text" name="productline" id="productline" value="{{ p.productline }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Product Scale : </td>
+                        <td><input type="text" name="productscale" id="productscale" value="{{ p.productscale }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Product Vendor : </td>
+                        <td><input type="text" name="productvendor" id="productvendor" value="{{ p.productvendor }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Product Description : </td>
+                        <td><textarea name="description" id="description" cols="30" rows="10">{{ p.productdescription }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td>Quantity In Stock : </td>
+                        <td><input type="text" name="quantity" id="quantity" value="{{ p.quantityinstock }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Buy Price : </td>
+                        <td><input type="text" name="price" id="price" value="{{ p.buyprice }}"></td>
+                    </tr>
+                    <tr>
+                        <td>MSRP : </td>
+                        <td><input type="text" name="msrp" id="msrp" value="{{ p.msrp }}"></td>
+                    </tr>
+                </table>
+                <button type="submit" name="productcode" id="productcode" value="{{ p.productcode }}">Submit</button>
+                <button><a href="/emp_stock-in">Cancel</a></button>
+            {% endfor %}
+        </form>
     </div>
-
 {% endblock content %}

@@ -1,37 +1,41 @@
 {% extends "web/base.html" %}
 {% block content %}
-
-<div class="body-container-nav">
-    <a href="/emp_stock-in.html">Stock-in</a>
-    <a href="/emp_order.html">Order</a>
-    <a href="/emp_customer.html">Customer</a>
-    <a href="/emp_ERM.html">ERM</a>
-    <a href="/emp_add-coupon.html">Add Coupon</a>
-</div>
-<div>
-    <table border="1">
-        <tr>
-            <th>Customer No.</th>
-            <th>Company Name</th>
-            <th>Customer Contact</th>
-            <th>Phone No.</th>
-            <th>Address</th>
-            <th>Postal Code</th>
-            <th>Country</th>
-            <td>Edit</td>
-        </tr>
-        {% for c in customer %}
-        <tr>
-            <td>{{ c.customernumber }}</td>
-            <td>{{ c.customername }}</td>
-            <td>{{ c.contactlastname }} {{ c.contactfirstname }}</td>
-            <td>{{ c.phone }}</td>
-            <td>{{ c.addressline1 }}</td>
-            <td>{{ c.postalcode }}</td>
-            <td>{{ c.country }}</td>
-            <td><a href="/customer/edit_customer.html">Click!</a></td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
+    <div>
+        <a href="/emp_stock-in/">Stock-in</a>
+        <a href="/emp_order/">Order</a>
+        <a href="/emp_customer/">Customer</a>
+        <a href="/emp_ERM/">ERM</a>
+        <a href="/emp_add-coupon/">Add Coupon</a>
+    </div>
+    <div>
+        <table border="1">
+            <tr>
+                <th>Customer No.</th>
+                <th>Company Name</th>
+                <th>Customer Contact</th>
+                <th>Phone No.</th>
+                <th>Address</th>
+                <th>Postal Code</th>
+                <th>Country</th>
+                <td>Edit</td>
+            </tr>
+            {% for c in customer %}
+            <tr>
+                <td>{{ c.customernumber }}</td>
+                <td>{{ c.customername }}</td>
+                <td>{{ c.contactlastname }} {{ c.contactfirstname }}</td>
+                <td>{{ c.phone }}</td>
+                <td>{{ c.addressline1 }}</td>
+                <td>{{ c.postalcode }}</td>
+                <td>{{ c.country }}</td>
+                <td>
+                    <form action="/edit_customer/{{c.customernumber}}/" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" id="customernumber" name="customernumber" value="{{ c.customernumber }}">Click!</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock content %}

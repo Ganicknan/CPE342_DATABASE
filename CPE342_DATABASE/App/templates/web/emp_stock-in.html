@@ -1,12 +1,12 @@
 {% extends "web/base.html" %}
 {% block content %}
-
-    <div class="body-container-nav">
-        <a href="/emp_stock-in.html">Stock-in</a>
-        <a href="/emp_order.html">Order</a>
-        <a href="/emp_customer.html">Customer</a>
-        <a href="/emp_ERM.html">ERM</a>
-        <a href="/emp_add-coupon.html">Add Coupon</a>
+<body>
+    <div>
+        <a href="/emp_stock-in/">Stock-in</a>
+        <a href="/emp_order/">Order</a>
+        <a href="/emp_customer/">Customer</a>
+        <a href="/emp_ERM/">ERM</a>
+        <a href="/emp_add-coupon/">Add Coupon</a>
     </div>
     <div>
         <table border="1">
@@ -23,7 +23,12 @@
                 <td>{{ p.productvendor }}</td>
                 <td>{{ p.productscale }}</td>
                 <td>{{ p.quantityinstock }}</td>
-                <td><a href="/product/edit_stock.html">Click!</a></td>
+                <td>
+                    <form action="/edit_stock/{{p.productcode}}/" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" id="productcode" name="productcode" value="{{ p.productcode }}">Click!</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </table>

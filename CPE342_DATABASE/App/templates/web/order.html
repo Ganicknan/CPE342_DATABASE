@@ -1,19 +1,19 @@
 {% extends "web/base.html" %}
 {% block content %}
-    <table>
-        <tr>
-            <th>Order Number</th>
-            <th>Status</th>
-            <th>Details</th>
-        </tr>
-
-        {% for o in order %}
-        <tr>
-            <td>{{ o.ordernumber }}</td>
-            <td>{{ o.status }}</td>
-            <td>{{ o.comments }}</td>
-        </tr>
-        {% endfor %}
-
-    </table>
+    <div>
+        <table>
+            <tr>
+                <th>Order Number</th>
+                <th>Status</th>
+                <th>Details</th>
+            </tr>
+            {% for o in order %}
+            <tr>
+                <td>{{ o.ordernumber }}</td>
+                <td>{{ o.status }}</td>
+                <td>{{ o.comments }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>>
 {% endblock content %}
