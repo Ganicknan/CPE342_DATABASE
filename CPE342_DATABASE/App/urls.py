@@ -4,10 +4,10 @@ from . import views
 
 urlpatterns = [
     # Customer
-    path('', views.home, name='app-home'),
-    path('index.html', views.home, name='app-home'),
-    path('product.html', views.product, name='app-product'),
-    path('order.html', views.order, name='app-order'),
+    url(r'^$', views.home, name='app-home'),
+    url(r'^index/$', views.home, name='app-home'),
+    url(r'^product/$', views.product, name='app-product'),
+    url(r'^order/$', views.order, name='app-order'),
 
     # Employee
     url(r'^emp_order/$', views.emp_order, name='app-employee-order'),
