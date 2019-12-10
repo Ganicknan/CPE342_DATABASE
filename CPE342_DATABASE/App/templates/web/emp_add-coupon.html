@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Add-Coupon</title>
-</head>
+{% extends "web/base.html" %}
 {% block content %}
-<body>
-    <div>
+    <div class="body-container-nav">
         <a href="/emp_stock-in.html">Stock-in</a>
         <a href="/emp_order.html">Order</a>
         <a href="/emp_customer.html">Customer</a>
@@ -36,6 +28,5 @@
         </table>
         <button type="submit">Add Coupon</button>
     </div>
-</body>
-{% endblock %}
-</html>
+
+{% endblock content %}

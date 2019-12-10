@@ -1,46 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Customer List</title>
-</head>
+{% extends "web/base.html" %}
 {% block content %}
-<body>
-    <div>
-        <a href="/emp_stock-in.html">Stock-in</a>
-        <a href="/emp_order.html">Order</a>
-        <a href="/emp_customer.html">Customer</a>
-        <a href="/emp_ERM.html">ERM</a>
-        <a href="/emp_add-coupon.html">Add Coupon</a>
-    </div>
-    <div>
-        <table border="1">
-            <tr>
-                <th>Customer No.</th>
-                <th>Company Name</th>
-                <th>Customer Contact</th>
-                <th>Phone No.</th>
-                <th>Address</th>
-                <th>Postal Code</th>
-                <th>Country</th>
-                <td>Edit</td>
-            </tr>
-            {% for c in customer %}
-            <tr>
-                <td>{{ c.customernumber }}</td>
-                <td>{{ c.customername }}</td>
-                <td>{{ c.contactlastname }} {{ c.contactfirstname }}</td>
-                <td>{{ c.phone }}</td>
-                <td>{{ c.addressline1 }}</td>
-                <td>{{ c.postalcode }}</td>
-                <td>{{ c.country }}</td>
-                <td><a href="/customer/edit_customer.html">Click!</a></td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-</body>
-{% endblock %}
-</html>
+
+<div class="body-container-nav">
+    <a href="/emp_stock-in.html">Stock-in</a>
+    <a href="/emp_order.html">Order</a>
+    <a href="/emp_customer.html">Customer</a>
+    <a href="/emp_ERM.html">ERM</a>
+    <a href="/emp_add-coupon.html">Add Coupon</a>
+</div>
+<div>
+    <table border="1">
+        <tr>
+            <th>Customer No.</th>
+            <th>Company Name</th>
+            <th>Customer Contact</th>
+            <th>Phone No.</th>
+            <th>Address</th>
+            <th>Postal Code</th>
+            <th>Country</th>
+            <td>Edit</td>
+        </tr>
+        {% for c in customer %}
+        <tr>
+            <td>{{ c.customernumber }}</td>
+            <td>{{ c.customername }}</td>
+            <td>{{ c.contactlastname }} {{ c.contactfirstname }}</td>
+            <td>{{ c.phone }}</td>
+            <td>{{ c.addressline1 }}</td>
+            <td>{{ c.postalcode }}</td>
+            <td>{{ c.country }}</td>
+            <td><a href="/customer/edit_customer.html">Click!</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock content %}
