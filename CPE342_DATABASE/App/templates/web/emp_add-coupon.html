@@ -1,0 +1,31 @@
+{% extends "web/base.html" %}
+{% block content %}
+    <div>
+        <a href="/emp_stock-in/">Stock-in</a>
+        <a href="/emp_order/">Order</a>
+        <a href="/emp_customer/">Customer</a>
+        <a href="/emp_ERM/">ERM</a>
+        <a href="/emp_add-coupon/">Add Coupon</a>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td>Code:</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>Value:</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>Qty:</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>Expire:</td>
+                <td><input type="text"></td>
+            </tr>
+        </table>
+        <button type="submit">Add Coupon</button>
+    </div>
+{% endblock content %}

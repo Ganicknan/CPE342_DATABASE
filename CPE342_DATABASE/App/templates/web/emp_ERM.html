@@ -1,0 +1,26 @@
+{% extends "web/base.html" %}
+{% block content %}
+    <div>
+        <a href="/emp_stock-in/">Stock-in</a>
+        <a href="/emp_order/">Order</a>
+        <a href="/emp_customer/">Customer</a>
+        <a href="/emp_ERM/">ERM</a>
+        <a href="/emp_add-coupon/">Add Coupon</a>
+    </div>
+    <div>
+        <table border="1">
+            <tr>
+                <th>Employee No.</th>
+                <th>Employee Name</th>
+                <th>Employee Job</th>
+            </tr>
+            {% for e in employee %}
+            <tr>
+                <td>{{ e.employeenumber }}</td>
+                <td>{{ e.lastname }} {{ e.firstname }}</td>
+                <td>{{ e.jobtitle }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock content %}

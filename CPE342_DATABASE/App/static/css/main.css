@@ -5,12 +5,12 @@
 }
 html,body{
     margin-top:0px;
+    background: e7e7e7;
 }
 nav 
 {
     width: 100%;
-    height: 60px;
-    border-bottom: 1px solid #000000;
+    height: 65px;
     float:right;
     padding: 0%;
     position: fixed;
@@ -21,7 +21,8 @@ nav .nav-container
     width: 100%;
     height: 100%;
     line-height: 65px;
-    background: burlywood;
+    background: #3b5284;
+    color: lightpink;
 }
 
 nav .nav-container .nav-logo
@@ -30,17 +31,22 @@ nav .nav-container .nav-logo
     padding-left:20px;
     padding-right:20px;
     display: inline;
-    font-size: 35px;
-    color: rgb(78, 158, 250);
+    font-size: 40px;
 }
 
-nav .nav-container .nav-link 
-{
+
+nav .nav-container .nav-link
+{   
+    color: #000;
     margin: 0 ;
     display:inline;
     font-size: 25px;
-    color: #fff;
     text-transform: uppercase;
+}
+
+nav .nav-container .nav-link a
+{   
+    color: #fff;
 }
 
 nav .nav-container a
@@ -61,8 +67,9 @@ padding: 15px;
 float: left;
 width:100%;
 height: 100%;
-border-block: solid 1px black;
-background: burlywood;
+background: #e7e7e7;
+color: #2d82b8;
+
 }
 
 .body-container-right
@@ -75,14 +82,31 @@ background: burlywood;
 
 }
 
-.nav-container-left
+.body-container-right .body-container-nav
 {
+    width: 100%;
+    height: 30px;
+    padding-left: 1%;
+    padding-right:1%;
+    
+}
+
+.body-container-nav a
+{
+   padding-left: 7%;
+   padding-right: 7%;
+   border: solid 1px black;
+   text-decoration: none;
+}
+
+nav .nav-container-left
+{
+    
     margin-top: 0 auto;
     width: 15%;
     margin-bottom: 20px;
     margin-right: 30px;
     float:left;
-
 }
 .body-container-bottom
 {
@@ -93,22 +117,21 @@ background: burlywood;
     color:rgb(78, 158, 250);
     font-family: inherit;
 }
-.body-container .left-navbar
-{
-    width: 15%;
-    color: aqua;
-    background-color: brown;
-}
+
 .login-container
 {
     width: 400px;
     margin-top: 65px;
 }
 
+.section
+{
+    margin-top: 20px;
+}
 .section .section-header
 {
     margin-top: 60px;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid #b6b6b6;
 }
 
 .section::after
@@ -124,7 +147,7 @@ background: burlywood;
     font-size: 40px;
     display: inline-block;
     width: 50%;
-    color: rgb(78, 158, 250);
+    color:#2d82b8;
 }
 
 .section .section-header .section-heading-show
@@ -150,23 +173,9 @@ background: burlywood;
 
 .section-cards
 {
-    margin: 18px;
-}
-
-.section-card-left
-{
-    height: 500px;
-    width: 33.33%;
+    width: 80%;
+    height: 100%;
     float: left;
-}
-
-.section-card-right
-{
-    height: 33.33;
-    width: 30.33%;
-    float: right;
-    margin:15px;
-    padding-left: 10px;
 }
 
 .card-bottom-row
@@ -181,7 +190,6 @@ background: burlywood;
     border: 1px solid black;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0px 3px 10px black;
 }
 
 .card .card-img
@@ -272,4 +280,50 @@ background: burlywood;
     text-decoration: none;
     margin-top:10px;
     margin-bottom: 10px;
+}
+
+.btns
+{
+    width:13%;
+    display: inline-block;
+    font-size:20px;
+    color:#fff;
+    text-align: center;
+    text-decoration: none;
+    margin-top:5px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    background: #353c42;
+}
+
+.max-btns
+{
+    width:94%;
+    display: inline-block;
+    font-size:20px;
+    color:#fff;
+    text-align: center;
+    text-decoration: none;
+    margin-top:5px;
+    margin-bottom: 5px;
+}
+
+.filterDiv {
+        
+    color: #000;
+    margin: 2px;
+    display: none;
+    font-size:20px;
+   border:1px solid #000000;
+   border-radius: 10px;
+   padding-left: 20px;
+   background: #fbd1a7;
+}
+ 
+.show {
+    display: block;
+}
+
+table {
+    width: 100%;
 }
