@@ -9,5 +9,7 @@ urlpatterns = [
     path('order.html', views.order, name='app-order'),
 
     # Employee
-    path('emp_product.html', views.emp_product, name='app-employee-product')
+    path('login.html', views.login, name='app.employee-login'),
+    path('emp_product.html', views.emp_product, name='app-employee-product'),
+    path('emp_ERM.html', views.get_name, name='app-employee-ERM')
 ]

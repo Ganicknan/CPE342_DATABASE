@@ -147,6 +147,7 @@ class Employees(models.Model):
     officecode = models.ForeignKey('Offices', models.DO_NOTHING, db_column='officeCode')  # Field name made lowercase.
     reportsto = models.ForeignKey('self', models.DO_NOTHING, db_column='reportsTo', blank=True, null=True)  # Field name made lowercase.
     jobtitle = models.CharField(db_column='jobTitle', max_length=50)  # Field name made lowercase.
+    password = models.CharField(db_column='password', max_length=45)  # Field name made lowercase.
 
     class Meta:
         managed = False

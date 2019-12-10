@@ -166,6 +166,7 @@ class Migration(migrations.Migration):
                 ('extension', models.CharField(max_length=10)),
                 ('email', models.CharField(max_length=100)),
                 ('jobtitle', models.CharField(db_column='jobTitle', max_length=50)),
+                ('password', models.CharField(db_column='password', max_length=45)),
             ],
             options={
                 'db_table': 'employees',

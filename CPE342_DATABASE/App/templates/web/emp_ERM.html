@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div>
+        {% block content %}
+            <tr>Name {{ user.firstname }}</tr>
+            <tr>Surname {{ user.lastname }}</tr>
+            <tr>E-mail {{ user.email }}</tr>
+        {% endblock %}
+        {% if user.title == "President" %}
+            <tr>{{ user.title }}</tr>
+        {% endif %}
+    </div>
+</body>
+</html>
