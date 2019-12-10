@@ -30,7 +30,12 @@
                 <td>{{ p.productvendor }}</td>
                 <td>{{ p.productscale }}</td>
                 <td>{{ p.quantityinstock }}</td>
-                <td><a href="/product/edit_stock.html">Click!</a></td>
+                <td>
+                    <form action="product/edit_stock.html" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" id="productcode" name="productcode" value="{{ p.productcode }}">Click!</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </table>

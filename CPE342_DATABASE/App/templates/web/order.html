@@ -9,13 +9,13 @@
 <body>
 
     <div>
+        {% block content %}
         <table>
             <tr>
                 <th>Order Number</th>
                 <th>Status</th>
                 <th>Details</th>
             </tr>
-            {% block content %}
                 {% for o in order %}
                     <tr>
                         <td>{{ o.ordernumber }}</td>
@@ -23,8 +23,8 @@
                         <td>{{ o.comments }}</td>
                     </tr>
                 {% endfor %}
-            {% endblock %}
         </table>
+        {% endblock %}
     </div>
 </body>
 </html>

@@ -9,7 +9,20 @@
 <body>
     <div><a href="/emp_order.html"><-Back</a></div>
     <div>
-        <h1>Hello</h1>
+        <form action="emp_order.html" method="POST">
+            {% for o in order %}
+                <table>
+                    <tr><h1>Order No. : {{ o.ordernumber }}</h1></tr>
+                    <tr>
+                        <td>Customer ID : </td>
+                        <td><input type="text" value="{{ o.customernumber }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Item</td>
+                    </tr>
+                </table>
+            {% endfor %}
+        </form>
     </div>
 </body>
 </html>

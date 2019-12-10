@@ -25,10 +25,16 @@
             </tr>
             {% for o in order %}
             <tr>
+                <form action=""></form>
                 <td>{{ o.ordernumber }}</td>
                 <td>{{ o.status }}</td>
                 <td>{{ o.customernumber }}</td>
-                <td><a href="/order/edit_order.html">Click!</a></td>
+                <td>
+                    <form action="order/edit_order.html" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" id="ordernumber" name="ordernumber" value="{{ o.ordernumber }}">Click!</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </table>

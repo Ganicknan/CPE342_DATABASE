@@ -9,7 +9,64 @@
 <body>
     <div><a href="/emp_customer.html"><-Back</a></div>
     <div>
-        <h1>Hello</h1>
+        <form action="/emp_customer.html" method="POST">
+            {% csrf_token %}
+            {% for c in customer %}
+                <table>
+                    <tr><h1>Customer No. : {{ c.customer }}</h1></tr>
+                    <tr>
+                        <td>Company Name : </td>
+                        <td><input type="text" name="customername" id="customername" name="customername" value="{{ c.customername }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Contact Lastname : </td>
+                        <td><input type="text" name="contactlastname" id="contactlastname" value="{{ c.contactlastname }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Contact Firstname : </td>
+                        <td><input type="text" name="contactfirstname" id="contactfirstname" value="{{ c.contactfirstname }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Phone : </td>
+                        <td><input type="text" name="phone" id="phone" value="{{ c.phone }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Address Line 1 : </td>
+                        <td><input type="text" name="addressline1" id="addressline1" value="{{ c.addressline1 }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Address Line 2 : </td>
+                        <td><input type="text" name="addressline2" id="addressline2" value="{{ c.addressline2 }}"></td>
+                    </tr>
+                    <tr>
+                        <td>City : </td>
+                        <td><input type="text" name="city" id="city" value="{{ c.city }}"></td>
+                    </tr>
+                    <tr>
+                        <td>State : </td>
+                        <td><input type="text" name="state" id="state" value="{{ c.state }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Postal Code : </td>
+                        <td><input type="text" name="postalcode" id="postalcode" value="{{ c.postalcode }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Country : </td>
+                        <td><input type="text" name="country" id="country" value="{{ c.country }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Sales Rep Employee No. : </td>
+                        <td><input type="text" name="salesrepemployeenumber" id="salesrepemployeenumber" value="{{ c.salesrepemployeenumber }}"></td>
+                    </tr>
+                    <tr>
+                        <td>Credit Limit : </td>
+                        <td><input type="text" name="creditlimit" id="creditlimit" value="{{ c.creditlimit }}"></td>
+                    </tr>
+                </table>
+                <button type="submit" name="customernumber" id="customernumber" value="{{ c.customernumber }}">Submit</button>
+                <button><a href="/emp_customer.html">Cancel</a></button>
+            {% endfor %}
+        </form>
     </div>
 </body>
 </html>

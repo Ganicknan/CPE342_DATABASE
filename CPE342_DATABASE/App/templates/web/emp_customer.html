@@ -36,7 +36,12 @@
                 <td>{{ c.addressline1 }}</td>
                 <td>{{ c.postalcode }}</td>
                 <td>{{ c.country }}</td>
-                <td><a href="/customer/edit_customer.html">Click!</a></td>
+                <td>
+                    <form action="customer/edit_customer.html" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" id="customernumber" name="customernumber" value="{{ c.customernumber }}">Click!</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </table>

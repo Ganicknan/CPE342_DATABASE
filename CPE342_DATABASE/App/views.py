@@ -36,13 +36,13 @@ def emp_addCoupon(request):
 
 # Edit DATABASE site.
 def edit_order(request):
-    order = Orders.objects.all()
+    order = Orders.objects.filter(ordernumber = request.POST['ordernumber'])
     return render(request, 'web/edit_order.html', {'order': order})
     
 def edit_stock(request):
-    product = Products.objects.all()
+    product = Products.objects.filter(productcode = request.POST['productcode'])
     return render(request, 'web/edit_stock.html', {'product': product})
     
 def edit_customer(request):
-    customer = Customers.objects.all()
+    customer = Customers.objects.filter(customernumber = request.POST['customernumber'])
     return render(request, 'web/edit_customer.html', {'customer': customer})
