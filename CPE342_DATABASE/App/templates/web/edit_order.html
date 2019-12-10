@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit-Order</title>
-</head>
-<body>
+{% extends "web/base.html" %}
+{% block content %}
     <div><a href="/emp_order/"><-Back</a></div>
     <div>
         <form action="emp_order.html" method="POST">
@@ -36,5 +29,4 @@
             </table>
         </form>
     </div>
-</body>
-</html>
+{% endblock content %}
