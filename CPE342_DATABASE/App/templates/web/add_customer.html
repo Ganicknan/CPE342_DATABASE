@@ -1,0 +1,63 @@
+{% extends "web/base-emp.html" %}
+{% block content %}
+    <div>
+        <form action="/emp_customer/" method="POST">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td><h1>Customer No : </h1></td>
+                    <td><input type="text" name="customernumber" id="customernumber" name="customernumber" required></td></tr>
+                <tr>
+                    <td>Company Name : </td>
+                    <td><input type="text" name="customername" id="customername" name="customername" required></td>
+                </tr>
+                <tr>
+                    <td>Contact Lastname : </td>
+                    <td><input type="text" name="contactlastname" id="contactlastname" required></td>
+                </tr>
+                <tr>
+                    <td>Contact Firstname : </td>
+                    <td><input type="text" name="contactfirstname" id="contactfirstname" required></td>
+                </tr>
+                <tr>
+                    <td>Phone : </td>
+                    <td><input type="text" name="phone" id="phone" required></td>
+                </tr>
+                <tr>
+                    <td>Address Line 1 : </td>
+                    <td><input type="text" name="addressline1" id="addressline1" required></td>
+                </tr>
+                <tr>
+                    <td>Address Line 2 : </td>
+                    <td><input type="text" name="addressline2" id="addressline2"></td>
+                </tr>
+                <tr>
+                    <td>City : </td>
+                    <td><input type="text" name="city" id="city" required></td>
+                </tr>
+                <tr>
+                    <td>State : </td>
+                    <td><input type="text" name="state" id="state"></td>
+                </tr>
+                <tr>
+                    <td>Postal Code : </td>
+                    <td><input type="text" name="postalcode" id="postalcode"></td>
+                </tr>
+                <tr>
+                    <td>Country : </td>
+                    <td><input type="text" name="country" id="country" required></td>
+                </tr>
+                <tr>
+                    <td>Sales Rep Employee No. : </td>
+                    <td><input type="text" name="salesrepemployeenumber" id="salesrepemployeenumber"></td>
+                </tr>
+                <tr>
+                    <td>Credit Limit : </td>
+                    <td><input type="text" name="creditlimit" id="creditlimit" value="0.00" required></td>
+                </tr>
+            </table>
+            <button>Submit</button>
+            <button type="button"><a href="/emp_customer/">Cancel</a></button>
+        </form>
+    </div>
+{% endblock content %}

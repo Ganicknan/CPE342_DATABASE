@@ -55,3 +55,6 @@ def add_order(request):
 
 def add_stock(request):
     return render(request, 'web/add_stock.html')
+    
+def add_customer(request):
+    return render(request, 'web/add_customer.html')

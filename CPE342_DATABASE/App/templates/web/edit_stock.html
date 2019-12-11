@@ -1,7 +1,7 @@
 {% extends "web/base-emp.html" %}
 {% block content %}
     <div>
-        <form action="emp_stock-in.html" method="POST">
+        <form action="emp_stock-in/" method="POST">
             {% csrf_token %}
             {% for p in product %}
                 <table>
@@ -40,7 +40,7 @@
                     </tr>
                 </table>
                 <button type="submit" name="productcode" id="productcode" value="{{ p.productcode }}">Submit</button>
-                <button><a href="/emp_stock-in">Cancel</a></button>
+                <button type="button"><a href="/emp_stock-in">Cancel</a></button>
             {% endfor %}
         </form>
     </div>
