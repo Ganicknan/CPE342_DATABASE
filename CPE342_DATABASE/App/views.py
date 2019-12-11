@@ -32,7 +32,7 @@ def emp_ERM(request):
     return render(request, 'web/emp_ERM.html', {'employee': employee,'title': 'Emp_ERM'})
 
 def emp_addCoupon(request):
-    return render(request, 'web/emp_add-coupon.html' , {'title': 'addcoupon'})
+    return render(request, 'web/emp_add-coupon.html' , {'title': 'Add coupon'})
 
 # Edit DATABASE site.
 def edit_order(request, question_id):
