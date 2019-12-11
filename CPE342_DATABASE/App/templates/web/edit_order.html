@@ -1,9 +1,11 @@
-{% extends "web/base.html" %}
+{% extends "web/base-emp.html" %}
 {% block content %}
     <div>
         <form action="emp_order.html" method="POST">
                 <table>
-                    <tr><h1>Order No. : {{ order.ordernumber }}</h1></tr>
+                    <tr>
+                        <h1>Order No. : {{ order.ordernumber }}</h1>
+                    </tr>
                     <tr>
                         <td>Customer ID : </td>
                         <td>{{ order.customernumber }}</td>
