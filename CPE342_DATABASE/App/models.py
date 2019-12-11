@@ -88,10 +88,22 @@ class Customers(models.Model):
     country = models.CharField(max_length=50)
     salesrepemployeenumber = models.ForeignKey('Employees', models.DO_NOTHING, db_column='salesRepEmployeeNumber', blank=True, null=True)  # Field name made lowercase.
     creditlimit = models.DecimalField(db_column='creditLimit', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    totalpoint = models.IntegerField()
 
     class Meta:
         managed = False
         db_table = 'customers'
+
+
+class Discountcode(models.Model):
+    code = models.CharField(primary_key=True, max_length=45)
+    value = models.IntegerField()
+    exp = models.DateField()
+    qty = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'discountcode'
 
 
 class DjangoAdminLog(models.Model):
@@ -147,7 +159,7 @@ class Employees(models.Model):
     officecode = models.ForeignKey('Offices', models.DO_NOTHING, db_column='officeCode')  # Field name made lowercase.
     reportsto = models.ForeignKey('self', models.DO_NOTHING, db_column='reportsTo', blank=True, null=True)  # Field name made lowercase.
     jobtitle = models.CharField(db_column='jobTitle', max_length=50)  # Field name made lowercase.
-    password = models.CharField(db_column='password', max_length=45)  # Field name made lowercase.
+    password = models.CharField(max_length=45)
 
     class Meta:
         managed = False
@@ -171,7 +183,7 @@ class Offices(models.Model):
 
 
 class Orderdetails(models.Model):
-    ordernumber = models.ForeignKey('Orders', models.DO_NOTHING, db_column='orderNumber')  # Field name made lowercase.
+    ordernumber = models.ForeignKey('Orders', models.DO_NOTHING, db_column='orderNumber', primary_key=True)  # Field name made lowercase.
     productcode = models.ForeignKey('Products', models.DO_NOTHING, db_column='productCode')  # Field name made lowercase.
     quantityordered = models.IntegerField(db_column='quantityOrdered')  # Field name made lowercase.
     priceeach = models.DecimalField(db_column='priceEach', max_digits=10, decimal_places=2)  # Field name made lowercase.
@@ -198,10 +210,12 @@ class Orders(models.Model):
 
 
 class Payments(models.Model):
-    customernumber = models.ForeignKey(Customers, models.DO_NOTHING, db_column='customerNumber')  # Field name made lowercase.
+    customernumber = models.ForeignKey(Customers, models.DO_NOTHING, db_column='customerNumber', primary_key=True)  # Field name made lowercase.
     checknumber = models.CharField(db_column='checkNumber', max_length=50)  # Field name made lowercase.
     paymentdate = models.DateField(db_column='paymentDate')  # Field name made lowercase.
     amount = models.DecimalField(max_digits=10, decimal_places=2)
+    memberpoint = models.IntegerField()
+    discountcode = models.ForeignKey(Discountcode, models.DO_NOTHING, db_column='code', max_length=45, blank=True, null=True)
 
     class Meta:
         managed = False

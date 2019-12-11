@@ -8,24 +8,27 @@
         <a href="/emp_add-coupon/">Add Coupon</a>
     </div>
     <div>
-        <table>
-            <tr>
-                <td>Code:</td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <td>Value:</td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <td>Qty:</td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <td>Expire:</td>
-                <td><input type="text"></td>
-            </tr>
-        </table>
-        <button type="submit">Add Coupon</button>
+        <form action="/emp_add-coupon/" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Code:</td>
+                    <td><input id="code" type="text" name="code"></td>
+                </tr>
+                <tr>
+                    <td>Value:</td>
+                    <td><input id="value" type="number" name="value"></td>
+                </tr>
+                <tr>
+                    <td>Qty:</td>
+                    <td><input id="qty" type="number" name="qty"></td>
+                </tr>
+                <tr>
+                    <td>Expire:</td>
+                    <td><input id="exp" type="date" name="exp"></td>
+                </tr>
+            </table>
+            <button type="submit">Add Coupon</button>
+        </form>
     </div>
 {% endblock content %}

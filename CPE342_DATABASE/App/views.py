@@ -33,12 +33,19 @@ def emp_ERM(request):
     return render(request, 'web/emp_ERM.html', {'employee': employee,'title': 'Emp_ERM'})
 
 def emp_addCoupon(request):
+    try:
+        coupon = Discountcode(code=request.POST['code'], value=request.POST['value'], exp=request.POST['exp'], qty=request.POST['qty'])
+        coupon.save()
+    except:
+        pass
     return render(request, 'web/emp_add-coupon.html' , {'title': 'addcoupon'})
 
 # Edit DATABASE site.
 def edit_order(request, question_id):
     order = Orders.objects.get(ordernumber = question_id)
     orderdetail = Orderdetails.objects.filter(ordernumber = question_id)
+    for p in orderdetail:
+        print(p.ordernumber)
     return render(request, 'web/edit_order.html', {'order': order, 'orderdetail': orderdetail, 'title': 'edit_order'})
     
 def edit_stock(request, question_id):

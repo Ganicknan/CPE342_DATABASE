@@ -3,7 +3,8 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    # Customerurl(r'^$', views.home, name='app-home'),
+    # Customer
+    url(r'^$', views.home, name='app-home'),
     url(r'^index/$', views.home, name='app-home'),
     url(r'^product/$', views.product, name='app-product'),
     url(r'^order/$', views.order, name='app-order'),

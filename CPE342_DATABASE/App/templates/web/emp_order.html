@@ -20,7 +20,7 @@
                 <form action=""></form>
                 <td>{{ o.ordernumber }}</td>
                 <td>{{ o.status }}</td>
-                <td>{{ o.customernumber }}</td>
+                <td>{{ o.customernumber.customernumber }}</td>
                 <td>
                     <form action="/edit_order/{{ o.ordernumber }}/" method="POST">
                         {% csrf_token %}
