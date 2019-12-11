@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^edit_order/(?P<question_id>\d+)/$', views.edit_order, name='app-editOrder'),
     url(r'^edit_stock/(?P<question_id>\w+)/$', views.edit_stock, name='app-editStock'),
     url(r'^edit_customer/(?P<question_id>\d+)/$', views.edit_customer, name='app-editCustomer'),
+    url(r'^add_order/$', views.add_order, name='app-addOrder'),
 
 ]

@@ -47,3 +47,7 @@ def edit_stock(request, question_id):
 def edit_customer(request, question_id):
     customer = Customers.objects.filter(customernumber = question_id)
     return render(request, 'web/edit_customer.html', {'customer': customer, 'title': 'edit_customer'})
+
+# Add site.
+def add_order(request):
+    return render(request, 'web/add_order.html')
