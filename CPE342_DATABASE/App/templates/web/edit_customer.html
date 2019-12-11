@@ -1,7 +1,7 @@
-{% extends "web/base.html" %}
+{% extends "web/base-emp.html" %}
 {% block content %}
     <div>
-        <form action="/emp_customer.html" method="POST">
+        <form action="/emp_customer/" method="POST">
             {% csrf_token %}
             {% for c in customer %}
                 <table>
@@ -56,7 +56,7 @@
                     </tr>
                 </table>
                 <button type="submit" name="customernumber" id="customernumber" value="{{ c.customernumber }}">Submit</button>
-                <button><a href="/emp_customer/">Cancel</a></button>
+                <button type="button"><a href="/emp_customer/">Cancel</a></button>
             {% endfor %}
         </form>
     </div>>

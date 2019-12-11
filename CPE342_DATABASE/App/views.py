@@ -68,3 +68,13 @@ def get_name(request):
         return render(request, 'web/emp_ERM.html', {'user': user})
     except:
         return render(request, 'web/Login.html')
+# Add site.
+def add_order(request):
+    product = Products.objects.all()
+    return render(request, 'web/add_order.html', {'product': product})
+
+def add_stock(request):
+    return render(request, 'web/add_stock.html')
+    
+def add_customer(request):
+    return render(request, 'web/add_customer.html')
