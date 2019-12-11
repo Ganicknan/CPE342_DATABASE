@@ -29,7 +29,16 @@
                     </tr>
                     <tr>
                         <td>Status : </td>
-                        <td><input type="text" value="{{order.status}}"></td>
+                        <td>
+                            <select name="status" id="status">
+                                <option value="Shipped"></option>
+                                <option value="Cancelled"></option>
+                                <option value="Disputed"></option>
+                                <option value="In Process"></option>
+                                <option value="On Hold"></option>
+                                <option value="Resolved"></option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td>Discount Code : </td>

@@ -6,12 +6,19 @@
                 <th>Employee No.</th>
                 <th>Employee Name</th>
                 <th>Employee Job</th>
+                <td>Edit</td>
             </tr>
             {% for e in employee %}
             <tr>
                 <td>{{ e.employeenumber }}</td>
                 <td>{{ e.lastname }} {{ e.firstname }}</td>
                 <td>{{ e.jobtitle }}</td>
+                <td>
+                    <form action="/edit_order/{{ o.ordernumber }}/" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" id="ordernumber" name="ordernumber" value="{{ o.ordernumber }}">Click!</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </table>
