@@ -50,4 +50,8 @@ def edit_customer(request, question_id):
 
 # Add site.
 def add_order(request):
-    return render(request, 'web/add_order.html')
+    product = Products.objects.all()
+    return render(request, 'web/add_order.html', {'product': product})
+
+def add_stock(request):
+    return render(request, 'web/add_stock.html')
