@@ -1,7 +1,7 @@
 {% extends "web/base-emp.html" %}
 {% block content %}
     <div>
-        <form action="/emp_stock-in/" method="POST">
+        <form action="/add_stock_to_database/" method="POST">
             {% csrf_token %}
             <table>
                 <tr>
@@ -30,15 +30,15 @@
                 </tr>
                 <tr>
                     <td>Quantity In Stock : </td>
-                    <td><input type="text" name="quantity" id="quantity"></td>
+                    <td><input type="number" name="quantity" id="quantity"></td>
                 </tr>
                 <tr>
                     <td>Buy Price : </td>
-                    <td><input type="text" name="price" id="price"></td>
+                    <td><input type="number" name="price" id="price"></td>
                 </tr>
                 <tr>
                     <td>MSRP : </td>
-                    <td><input type="text" name="msrp" id="msrp"></td>
+                    <td><input type="number" name="msrp" id="msrp"></td>
                 </tr>
             </table>
             <button type="submit">Submit</button>

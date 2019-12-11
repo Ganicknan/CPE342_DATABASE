@@ -1,7 +1,7 @@
 {% extends "web/base-emp.html" %}
 {% block content %}
     <div>
-        <form action="/emp_order/" method="POST" id="form">
+        <form action="/add_order_to_database/" method="POST" id="form">
             {% csrf_token %}
             <table>
                 <tr>
@@ -58,16 +58,18 @@
             for (var i = 0; i < 2; i++) {
                 var cell = document.createElement("td");
                 if (i == 0) {
-                    var cellText = document.createTextNode("Product Code : " + Code);
+                    var cellText = document.createElement("Input");
                     cell.appendChild(cellText);
-                    cell.id = "productcode" + num;
-                    cell.setAttribute("name", "productcode" + num);
+                    cellText.value = Code;
+                    cellText.id = "productcode" + num;
+                    cellText.setAttribute("name", "productcode" + num);
                 }
                 else {
-                    var cellText = document.createTextNode("Quantity : " + Qty);
+                    var cellText = document.createElement("Input");
                     cell.appendChild(cellText);
-                    cell.id = "quantity" + num;
-                    cell.setAttribute("name", "quantity" + num);
+                    cellText.value = Qty
+                    cellText.id = "quantity" + num;
+                    cellText.setAttribute("name", "quantity" + num);
                 }
                 row.appendChild(cell);
             }
