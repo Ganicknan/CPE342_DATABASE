@@ -53,7 +53,7 @@ def edit_stock(request, question_id):
     return render(request, 'web/edit_stock.html', {'product': product, 'title': 'edit_stock'})
     
 def edit_customer(request, question_id):
-    customer = Customers.objects.filter(customernumber = question_id)
+    customer = Customers.objects.get(customernumber = question_id)
     return render(request, 'web/edit_customer.html', {'customer': customer, 'title': 'edit_customer'})
 
 def login(request):
@@ -78,3 +78,17 @@ def add_stock(request):
     
 def add_customer(request):
     return render(request, 'web/add_customer.html')
+
+#POST method
+def update_emp_customer(request, question_id):
+    print(request.POST['city'])
+    customer = Customers.objects.get(customernumber = question_id)
+    print("before")
+    print(customer.__dict__)
+    customer.city = request.POST['city']
+    print("after")
+    print(customer.__dict__)
+    customer.save()
+
+
+    return render(request, 'web/edit_customer.html', {'customer': customer, 'title': 'edit_customer'})

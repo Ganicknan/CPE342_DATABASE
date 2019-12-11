@@ -23,9 +23,10 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <select style="width: 100%;">
+                                    <select id="code" style="width: 100%;">
                                         {% for p in product %}
-                                            <option id="code" value="{{ p.productcode }}">{{ p.productcode }}</option>
+					<!--<option id="code" value="{{ p.productcode }}">{{ p.productcode }}</option>-->
+                                            <option value="{{ p.productcode }}">{{ p.productcode }}</option>
                                         {% endfor %}
                                     </select>
                                 </td>
@@ -46,6 +47,7 @@
         function addtr() {
             var Code = document.getElementById("code").value,
                 Qty = document.getElementById("qty").value;
+	    console.log(Code)
             if (Code == "" || Qty == "") {
                 alert("Please fill an input.")
                 return false;

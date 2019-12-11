@@ -1,63 +1,61 @@
 {% extends "web/base-emp.html" %}
 {% block content %}
     <div>
-        <form action="/emp_customer/" method="POST">
+	    <form action="/update_emp_customer/{{customer.customernumber }}/" method="POST">
             {% csrf_token %}
-            {% for c in customer %}
                 <table>
-                    <tr><h1>Customer No. : {{ c.customer }}</h1></tr>
+                    <tr><h1>Customer No. : {{ customer.customernumber }}</h1></tr>
                     <tr>
                         <td>Company Name : </td>
-                        <td><input type="text" name="customername" id="customername" name="customername" value="{{ c.customername }}"></td>
+                        <td><input type="text" name="customername" id="customername" name="customername" value="{{ customer.customername }}"></td>
                     </tr>
                     <tr>
                         <td>Contact Lastname : </td>
-                        <td><input type="text" name="contactlastname" id="contactlastname" value="{{ c.contactlastname }}"></td>
+                        <td><input type="text" name="contactlastname" id="contactlastname" value="{{ customer.contactlastname }}"></td>
                     </tr>
                     <tr>
                         <td>Contact Firstname : </td>
-                        <td><input type="text" name="contactfirstname" id="contactfirstname" value="{{ c.contactfirstname }}"></td>
+                        <td><input type="text" name="contactfirstname" id="contactfirstname" value="{{ customer.contactfirstname }}"></td>
                     </tr>
                     <tr>
                         <td>Phone : </td>
-                        <td><input type="text" name="phone" id="phone" value="{{ c.phone }}"></td>
+                        <td><input type="text" name="phone" id="phone" value="{{ customer.phone }}"></td>
                     </tr>
                     <tr>
                         <td>Address Line 1 : </td>
-                        <td><input type="text" name="addressline1" id="addressline1" value="{{ c.addressline1 }}"></td>
+                        <td><input type="text" name="addressline1" id="addressline1" value="{{ customer.addressline1 }}"></td>
                     </tr>
                     <tr>
                         <td>Address Line 2 : </td>
-                        <td><input type="text" name="addressline2" id="addressline2" value="{{ c.addressline2 }}"></td>
+                        <td><input type="text" name="addressline2" id="addressline2" value="{{ customer.addressline2 }}"></td>
                     </tr>
                     <tr>
                         <td>City : </td>
-                        <td><input type="text" name="city" id="city" value="{{ c.city }}"></td>
+                        <td><input type="text" name="city" id="city" value="{{ customer.city }}"></td>
                     </tr>
                     <tr>
                         <td>State : </td>
-                        <td><input type="text" name="state" id="state" value="{{ c.state }}"></td>
+                        <td><input type="text" name="state" id="state" value="{{ customer.state }}"></td>
                     </tr>
                     <tr>
                         <td>Postal Code : </td>
-                        <td><input type="text" name="postalcode" id="postalcode" value="{{ c.postalcode }}"></td>
+                        <td><input type="text" name="postalcode" id="postalcode" value="{{ customer.postalcode }}"></td>
                     </tr>
                     <tr>
                         <td>Country : </td>
-                        <td><input type="text" name="country" id="country" value="{{ c.country }}"></td>
+                        <td><input type="text" name="country" id="country" value="{{ customer.country }}"></td>
                     </tr>
                     <tr>
                         <td>Sales Rep Employee No. : </td>
-                        <td><input type="text" name="salesrepemployeenumber" id="salesrepemployeenumber" value="{{ c.salesrepemployeenumber }}"></td>
+                        <td><input type="text" name="salesrepemployeenumber" id="salesrepemployeenumber" value="{{ customer.salesrepemployeenumber }}"></td>
                     </tr>
                     <tr>
                         <td>Credit Limit : </td>
-                        <td><input type="text" name="creditlimit" id="creditlimit" value="{{ c.creditlimit }}"></td>
+                        <td><input type="text" name="creditlimit" id="creditlimit" value="{{ customer.creditlimit }}"></td>
                     </tr>
                 </table>
-                <button type="submit" name="customernumber" id="customernumber" value="{{ c.customernumber }}">Submit</button>
+                <button type="submit" name="customernumber" id="customernumber" value="{{ customer.customernumber }}">Submit</button>
                 <button type="button"><a href="/emp_customer/">Cancel</a></button>
-            {% endfor %}
         </form>
-    </div>>
+    </div>
 {% endblock content %}

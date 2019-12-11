@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^emp_add-coupon/$', views.emp_addCoupon, name='app-employee-addCoupon'),
     url(r'^edit_order/(?P<question_id>\d+)/$', views.edit_order, name='app-editOrder'),
     url(r'^edit_stock/(?P<question_id>\w+)/$', views.edit_stock, name='app-editStock'),
+    url(r'^update_emp_customer/(?P<question_id>\w+)/$', views.update_emp_customer, name='update_customer'),
     url(r'^edit_customer/(?P<question_id>\d+)/$', views.edit_customer, name='app-editCustomer'),
     url(r'^add_order/$', views.add_order, name='app-addOrder'),
     url(r'^add_stock/$', views.add_stock, name='app-addStock'),
