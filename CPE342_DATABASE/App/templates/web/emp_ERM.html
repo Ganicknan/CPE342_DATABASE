@@ -1,6 +1,5 @@
 {% extends "web/base-emp.html" %}
 {% block content %}
-    <h3>{{ user.employeenumber }}</h3>
     <div>
         <table border="1">
             <tr>
@@ -15,9 +14,9 @@
                 <td>{{ e.lastname }} {{ e.firstname }}</td>
                 <td>{{ e.jobtitle }}</td>
                 <td>
-                    <form action="/edit_order/{{ o.ordernumber }}/" method="POST">
+                    <form action="/edit_ERM/{{ e.employeenumber }}/" method="POST">
                         {% csrf_token %}
-                        <button type="submit" id="ordernumber" name="ordernumber" value="{{ o.ordernumber }}">Click!</button>
+                        <button type="submit" id="employeenumber" name="employeenumber" value="{{ e.employeenumber }}">Click!</button>
                     </form>
                 </td>
             </tr>

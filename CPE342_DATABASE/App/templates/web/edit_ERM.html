@@ -1,16 +1,23 @@
 {% extends "web/base-emp.html" %}
 {% block content %}
     <div>
-        <form action="/emp_customer/" method="POST">
+        <form action="/update_ERM/{{ employee.employeenumber }}/" method="POST">
             {% csrf_token %}
             <table>
                 <tr>
-                    <td>Employee No. : </td>
-                    <td>{{ employee.employeenumber }}</td>
+                    <td><h1>Employee No. : </h1></td>
+                    <td><h1>{{ employee.employeenumber }}</h1></td>
                 </tr>
                 <tr>
                     <td>Jobtitle : </td>
-                    <td><input type="text" name="jobtitle" id="jobtitle" value="{{ employee.jobtitle }}"></td>
+                    <td>
+                        <select name="jobtitle" id="jobtitle">
+                            {% for c in change %}
+                                <p>{{ c.jobtitle }}</p>
+                                <option value="{{ c.jobtitle }}">{{ c.jobtitle }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
                 </tr>
             </table>
             <button type="submit" name="employeenumber" id="employeenumber" value="{{ e.employeenumber }}">Submit</button>

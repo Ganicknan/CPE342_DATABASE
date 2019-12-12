@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template import Context
 from datetime import date, timedelta
+from django.db.models import Q
 from .models import *
 from .form import *
+import re
+import string
 
 user = 0
 
@@ -32,7 +36,13 @@ def emp_customer(request):
     return render(request, 'web/emp_customer.html', {'customer': customer, 'title': 'Emp_customer'})
     
 def emp_ERM(request):
-    employee = Employees.objects.all()
+    employee = Employees.objects.get(employeenumber = '1056') # Chenge to login-user
+    if(re.findall("VP", employee.jobtitle)):
+        employee = Employees.objects.filter(Q(jobtitle__contains = 'Manager') | Q(jobtitle__contains = 'Rep'))
+    elif(re.findall("Manager", employee.jobtitle)):
+        employee = Employees.objects.filter(jobtitle__contains = 'Rep')
+    else:
+        return emp_customer(request)
     return render(request, 'web/emp_ERM.html', {'employee': employee,'title': 'Emp_ERM'})
 
 def emp_mempoint(request):
@@ -78,6 +88,25 @@ def get_name(request):
         return render(request, 'web/emp_customer.html', {'customer': customer , 'user': user, 'title': 'Emp_customer'})
     except:
         return render(request, 'web/Login.html')
+
+def edit_ERM(request, question_id):
+    employee = Employees.objects.get(employeenumber = question_id)
+    if(re.findall("Manager", employee.jobtitle)):
+        context = [
+            {"jobtitle": "VP"},
+            {"jobtitle": "Rep"}
+        ]
+        return render(request, 'web/edit_ERM.html', {'employee': employee, 'change': context, 'title': 'Emp_ERM'})
+
+    elif(re.findall("Rep", employee.jobtitle)):
+        context = [
+            {"jobtitle": "Manager"}
+        ]
+        print(context)
+        return render(request, 'web/edit_ERM.html', {'employee': employee, 'change': context, 'title': 'Emp_ERM'})
+    else:
+        return HttpResponse("hello")
+
 # Add site.
 def add_order(request):
     product = Products.objects.all()
@@ -253,7 +282,7 @@ def add_order_to_data(request):
                     customernumber=customer)
         i=0
         product = Products.objects.get(productcode=request.POST["productcode0"])
-        product.quantityinstock -= request.POST["quantity" + str(i)]
+        product.quantityinstock += -int(request.POST["quantity" + str(i)])
         if product.quantityinstock < 0:
             return add_order(request)
         order.save()
@@ -289,3 +318,41 @@ def update_mempoint(request):
         c.totalpoint = sum
         c.save()
     return render(request, 'web/emp_mempoint.html', {'customer': customer,'title': 'Emp_MemberPoint'})
+
+def update_ERM(request, question_id):
+    employee = Employees.objects.get(employeenumber = question_id)
+    if(re.findall('Manager', employee.jobtitle)):
+        if(request.POST['jobtitle'] == "VP"):
+            dummy = employee.jobtitle.split()
+            employee.jobtitle = "VP " + dummy[0]
+            try:
+                employee.jobtitle += " " + dummy[2]
+            except:
+                print("didn't have dummy[2]")
+            print(employee.jobtitle)
+        else:
+            dummy = employee.jobtitle.split()
+            employee.jobtitle = dummy[0] + " " + "Rep"
+            try:
+                employee.jobtitle += " " + dummy[2]
+            except:
+                print("didn't have dummy[2]")
+            print(employee.jobtitle)
+    else:
+        dummy = employee.jobtitle.split()
+        employee.jobtitle = dummy[0] + " Manager"
+        try:
+            employee.jobtitle += " " + dummy[2]
+        except:
+            print("didn't have dummy[2]")
+        print(employee.jobtitle)
+    employee.save()
+
+    employee = Employees.objects.get(employeenumber = '1056') # Chenge to login-user
+    if(re.findall("VP", employee.jobtitle)):
+        employee = Employees.objects.filter(Q(jobtitle__contains = 'Manager') | Q(jobtitle__contains = 'Rep'))
+    elif(re.findall("Manager", employee.jobtitle)):
+        employee = Employees.objects.filter(jobtitle__contains = 'Rep')
+    else:
+        return emp_customer(request)
+    return render(request, 'web/emp_ERM.html', {'employee': employee,'title': 'Emp_ERM'})
