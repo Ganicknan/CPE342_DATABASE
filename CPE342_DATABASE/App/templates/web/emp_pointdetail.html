@@ -1,0 +1,17 @@
+{% extends "web/base-emp.html" %}
+{% block content %}
+    <div>
+        <table border="1">
+            <tr>
+                <th>Check Number</th>
+                <th>Member Point</th>
+            </tr>
+            {% for p in payment %}
+            <tr>
+                <td>{{ p.checknumber }}</td>
+                <td>{{ p.memberpoint }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock content %}

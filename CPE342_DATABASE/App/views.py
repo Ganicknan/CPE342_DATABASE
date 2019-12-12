@@ -4,6 +4,8 @@ from datetime import date, timedelta
 from .models import *
 from .form import *
 
+user = 0
+
 # Customer site.
 def home(request):
     return render(request, 'web/index.html',{'title': 'Home'})
@@ -27,11 +29,19 @@ def emp_stockIn(request):
 
 def emp_customer(request):
     customer = Customers.objects.all()
-    return render(request, 'web/emp_customer.html', {'customer': customer , 'title': 'Emp_customer'})
+    return render(request, 'web/emp_customer.html', {'customer': customer, 'title': 'Emp_customer'})
     
 def emp_ERM(request):
     employee = Employees.objects.all()
     return render(request, 'web/emp_ERM.html', {'employee': employee,'title': 'Emp_ERM'})
+
+def emp_mempoint(request):
+    customer = Customers.objects.all()
+    return render(request, 'web/emp_mempoint.html', {'customer': customer,'title': 'Emp_MemberPoint'})
+
+def emp_pointdetail(request, question_id):
+    payment = Payments.objects.filter(customernumber=question_id)
+    return render(request, 'web/emp_pointdetail.html', {'payment': payment,'title': 'Emp_MemberPointDetail'})
 
 def emp_addCoupon(request):
     try:
@@ -45,8 +55,6 @@ def emp_addCoupon(request):
 def edit_order(request, question_id):
     order = Orders.objects.get(ordernumber = question_id)
     orderdetail = Orderdetails.objects.filter(ordernumber = question_id)
-    for p in orderdetail:
-        print(p.ordernumber)
     return render(request, 'web/edit_order.html', {'order': order, 'orderdetail': orderdetail, 'title': 'edit_order'})
     
 def edit_stock(request, question_id):
@@ -66,13 +74,14 @@ def get_name(request):
         user = Employees.objects.get(employeenumber = request.POST['username'])
         if password != int(user.password):
             return render(request, 'web/Login.html')
-        return render(request, 'web/emp_ERM.html', {'user': user})
+        customer = Customers.objects.all()
+        return render(request, 'web/emp_customer.html', {'customer': customer , 'user': user, 'title': 'Emp_customer'})
     except:
         return render(request, 'web/Login.html')
 # Add site.
 def add_order(request):
     product = Products.objects.all()
-    return render(request, 'web/add_order.html', {'product': product})
+    return render(request, 'web/add_order.html', {'product': product, 'user': user})
 
 def add_stock(request):
     return render(request, 'web/add_stock.html')
@@ -176,35 +185,107 @@ def delete_product(request, question_id):
     except:
         return edit_stock(request, question_id)
 
+def update_emp_order(request, question_id):
+    try:
+        order = Orders.objects.get(ordernumber=question_id)
+        if request.POST['status'] == "Cancelled":
+            order.status = "Cancelled"
+            order.comments = request.POST['comments']
+            order.save()
+            return emp_order(request)
+        if order.status == "In Process":
+            orderdetails = Orderdetails.objects.filter(ordernumber=question_id)
+            sum = 0
+            for o in orderdetails:
+                sum = sum + (o.priceeach * o.quantityordered)
+            if request.POST['discountcode'] != "":
+                try:
+                    print(request.POST['discountcode'])
+                    discount = Discountcode.objects.get(code=request.POST['discountcode'])
+                    print(discount.__dict__)
+                    print((discount.exp - date.today()).days)
+                    if (discount.exp - date.today()).days < 0:
+                        return edit_order(request, question_id)
+                    sum = sum - discount.value
+                except:
+                    return edit_order(request, question_id)
+            point = int(sum / 100) * 3
+            payment = Payments(customernumber=order.customernumber,
+                                checknumber=request.POST['checknumber'],
+                                paymentdate=date.today(),
+                                amount=sum,
+                                memberpoint=point)
+            if request.POST['discountcode'] != "":
+                payment.discountcode = request.POST['discountcode']
+                discount = Discountcode.objects.get(code=request.POST['discountcode'])
+                discount.qty += -1
+                discount.save()
+            payment.save()
+            customer = order.customernumber
+            customer.totalpoint += point
+            customer.save()
+            order.status = "Shipped"
+            order.shippeddate = date.today()
+            order.save()
+            return emp_order(request)
+        order.status = request.POST['status']
+        order.comments = request.POST['comments']
+        order.save()
+        return emp_order(request)
+        
+        
+    except:
+        return edit_order(request, question_id)
+
+
 def add_order_to_data(request):
     try:
         order = Order.objects.get(ordernumber=request.POST['ordernumber'])
         return add_order(request)
     except:
         pass
-    #try:
-    customer = Customers.objects.get(customernumber=request.POST['customernumber'])
-    order = Orders(ordernumber=request.POST['ordernumber'],
-                orderdate=date.today(),
-                requireddate=date.today()+timedelta(10),
-                status="In Process",
-                customernumber=customer)
-    order.save()
-    i=0
     try:
-        
-        while True:
-            product = Products.objects.get(productcode=request.POST["productcode" + str(i)])
-            orderdetail = Orderdetails(ordernumber=order,
-                                        productcode=product,
-                                        quantityordered=request.POST["quantity" + str(i)],
-                                        priceeach=product.buyprice,
-                                        orderlinenumber=i+1)
-            orderdetail.save()
-            i+=1
-            #Orders.objects.get(ordernumber=10100)
+        customer = Customers.objects.get(customernumber=request.POST['customernumber'])
+        order = Orders(ordernumber=request.POST['ordernumber'],
+                    orderdate=date.today(),
+                    requireddate=date.today()+timedelta(10),
+                    status="In Process",
+                    customernumber=customer)
+        i=0
+        product = Products.objects.get(productcode=request.POST["productcode0"])
+        product.quantityinstock -= request.POST["quantity" + str(i)]
+        if product.quantityinstock < 0:
+            return add_order(request)
+        order.save()
+        product.save()
+        try:
+            
+            while True:
+                product = Products.objects.get(productcode=request.POST["productcode" + str(i)])
+                orderdetail = Orderdetails(ordernumber=order,
+                                            productcode=product,
+                                            quantityordered=request.POST["quantity" + str(i)],
+                                            priceeach=product.buyprice,
+                                            orderlinenumber=i+1)
+                orderdetail.save()
+                i+=1
+                #Orders.objects.get(ordernumber=10100)
+        except:
+            print(i)
+        return emp_order(request)
     except:
-        print(i)
-    return emp_order(request)
-    #except:
-        #return add_order(request)
+        return add_order(request)
+
+def update_mempoint(request):
+    customer = Customers.objects.all()
+    for c in customer:
+        
+        sum = 0
+        payment = Payments.objects.filter(customernumber=c.customernumber)
+        for p in payment:
+            p.memberpoint = int(p.amount / 100) * 3
+            sum += p.memberpoint
+            p.save()
+        c.totalpoint = sum
+        c.save()
+    return render(request, 'web/emp_mempoint.html', {'customer': customer,'title': 'Emp_MemberPoint'})

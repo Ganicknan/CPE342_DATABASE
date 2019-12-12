@@ -210,12 +210,12 @@ class Orders(models.Model):
 
 
 class Payments(models.Model):
-    customernumber = models.ForeignKey(Customers, models.DO_NOTHING, db_column='customerNumber', primary_key=True)  # Field name made lowercase.
-    checknumber = models.CharField(db_column='checkNumber', max_length=50)  # Field name made lowercase.
+    customernumber = models.ForeignKey(Customers, models.DO_NOTHING, db_column='customerNumber')  # Field name made lowercase.
+    checknumber = models.CharField(db_column='checkNumber', max_length=50, primary_key=True)  # Field name made lowercase.
     paymentdate = models.DateField(db_column='paymentDate')  # Field name made lowercase.
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     memberpoint = models.IntegerField()
-    discountcode = models.ForeignKey(Discountcode, models.DO_NOTHING, db_column='code', max_length=45, blank=True, null=True)
+    discountcode = models.CharField(max_length=45, blank=True, null=True)
 
     class Meta:
         managed = False

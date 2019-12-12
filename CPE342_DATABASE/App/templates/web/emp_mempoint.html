@@ -1,0 +1,18 @@
+{% extends "web/base-emp.html" %}
+{% block content %}
+    <a href="/emp_pointupdate/">Update</a>
+    <div>
+        <table border="1">
+            <tr>
+                <th>Customer Number</th>
+                <th>Member Point</th>
+            </tr>
+            {% for c in customer %}
+            <tr>
+                <td><a href="/emp_mempoint/{{ c.customernumber }}/">{{ c.customernumber }}</a></td>
+                <td>{{ c.totalpoint }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock content %}
